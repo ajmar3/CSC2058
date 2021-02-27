@@ -12,6 +12,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		m.loadMenu();
+		//this is a test comment
 	}
 	
 }
