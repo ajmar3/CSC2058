@@ -51,5 +51,14 @@ public class Player {
     public void setOwnedTiles(List<Tile> ownedTiles) {
         this.ownedTiles = ownedTiles;
     }
+    
+    public void addTile(Tile tile){
+        ownedTiles.add(tile);
+        balance = balance - tile.getCost();
+        tile.setBuyable(false);
+    }
+    public void removeTile(Tile tile) {
+    	ownedTiles.remove(tile);
+    }
 
 }
