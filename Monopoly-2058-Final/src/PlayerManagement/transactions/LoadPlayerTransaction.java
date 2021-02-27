@@ -1,10 +1,18 @@
 package PlayerManagement.transactions;
 
-public class LoadPlayerTransaction {
+import java.util.List;
+
+import PlayerManagement.Player;
+
+public class LoadPlayerTransaction{
 	
-	public void RegisterPlayers() {
-		//
+	private static List<Player> Players;
 	
+	public void LoadPlayers() {
+		
+		RegisterPlayerTransaction lP = new RegisterPlayerTransaction();
+        Players = lP.RegisterPlayers();
+			
 	}
 	
 	
