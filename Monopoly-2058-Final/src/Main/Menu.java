@@ -10,11 +10,12 @@ public class Menu {
 		this.title = title;
 		copyOptions(options);
 	}
-	
+
 	public int getChoice() {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter choice: ");
 		int choice = input.nextInt();
+		input.close();  //closing input to avoid resource leak
 		return choice;
 	}
 	
