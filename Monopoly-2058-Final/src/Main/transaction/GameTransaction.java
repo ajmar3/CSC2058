@@ -34,7 +34,6 @@ public class GameTransaction {
 			//setting new currentTile for given player
 			gamePlayers.get(i).setCurrentTile(LoadTileTransaction.gameTiles.get(temp));
 
-
 			System.out.println(gamePlayers.get(i).getName() + " has landed on " + gamePlayers.get(i).getCurrentTile().name); //output show what tile player now on
 
 			//ending turn sequence
@@ -55,6 +54,9 @@ public class GameTransaction {
 		
 	}
 	public void buySafariPark() {
+
+	}
+	public void payRent() {
 
 	}
 
