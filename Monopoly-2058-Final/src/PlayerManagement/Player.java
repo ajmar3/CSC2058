@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TileManagement.Tile;
+import TileManagement.LoadTileTransaction;
 
 public class Player {
 	private String name;
@@ -14,10 +15,11 @@ public class Player {
     public Player(String _name, double _balance) {
         name = _name;
         balance = _balance;
+        currentTile = LoadTileTransaction.gameTiles.get(0);
     }
 
     public void printDetails(){
-        System.out.println("Name: " + name + " | " + "Balance: £" + balance);
+        System.out.println("Name: " + name + " | " + "Balance: ï¿½" + balance);
     }
 
     public String getName() {

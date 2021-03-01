@@ -18,6 +18,7 @@ public class RegisterPlayerTransaction {
         int amount = nS.nextInt();
         nS.nextLine();
         String pname;
+        
         //check if name has already been entered by player
         for(int i = 0; i < amount; i++){
             System.out.println("Enter the name of player " + (i+1) + ": ");
@@ -43,6 +44,7 @@ public class RegisterPlayerTransaction {
         if(!securityCheck()){
             System.out.println("Some of the players entered are either null or not acceptable.");
         }
+        
         else{
             printDetails();
             System.out.println("Enter any button to start the game");
@@ -90,5 +92,11 @@ public class RegisterPlayerTransaction {
                 gamePlayers.get(x).printDetails();
             }
         }
+    }
+
+
+    public List<Player> getPlayerList() {
+
+        return gamePlayers;
     }
 }

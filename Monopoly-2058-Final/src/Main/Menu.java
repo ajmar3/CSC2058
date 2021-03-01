@@ -15,7 +15,6 @@ public class Menu {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter choice: ");
 		int choice = input.nextInt();
-		input.close();  //closing input to avoid resource leak
 		return choice;
 	}
 	
