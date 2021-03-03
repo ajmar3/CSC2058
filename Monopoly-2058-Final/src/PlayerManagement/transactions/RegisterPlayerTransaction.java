@@ -11,6 +11,8 @@ public class RegisterPlayerTransaction {
 	public int playerAmount = 0;
 	public static List<Player> gamePlayers = new ArrayList<Player>();
 	public Scanner nS = new Scanner(System.in);
+    
+    public static int numTurns;
 	
 	public List<Player> RegisterPlayers() {
 	
@@ -47,6 +49,11 @@ public class RegisterPlayerTransaction {
         
         else{
             printDetails();
+            
+            //getting the amount of turns the game should last for
+            System.out.println("Enter how many turns you want the game to continue for: "+ "\n");
+            numTurns = nS.nextInt();
+
             System.out.println("Enter any button to start the game");
             String in = nS.nextLine();
             System.out.println("\n"+"#########################################################################"+"\n");   //adding row of #s after each turn  [A.M]
@@ -99,4 +106,5 @@ public class RegisterPlayerTransaction {
 
         return gamePlayers;
     }
+
 }

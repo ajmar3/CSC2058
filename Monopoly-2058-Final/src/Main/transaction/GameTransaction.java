@@ -9,6 +9,7 @@ import PlayerManagement.transactions.RegisterPlayerTransaction;
 import PlayerManagement.transactions.PlayerRollTransaction;
 import Dice.Dice;
 import TileManagement.LoadTileTransaction;
+import TileManagement.Tile;
 
 public class GameTransaction {
 	
@@ -36,28 +37,76 @@ public class GameTransaction {
 
 			System.out.println(gamePlayers.get(i).getName() + " has landed on " + gamePlayers.get(i).getCurrentTile().name); //output show what tile player now on
 
+
+			switch(gamePlayers.get(i).getCurrentTile().getTileType()) {
+
+				case "noActionTile":
+					break;
+				case "chanceTile":
+					takeChanceCard();
+					break;
+				case "taxTile":
+					payTax(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
+					break;
+				case "propertyTile":
+					if(gamePlayers.get(i).getCurrentTile().isBuyable()) {
+						buyProperty(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
+						break;
+					}
+					else {
+						payRent(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
+					}
+				case "goToJailTile":
+					goToJail(gamePlayers.get(i));
+			}
+			
+			
+			
+			
+			// if (gamePlayers.get(i).getCurrentTile().isBuyable()) {
+
+			// 	System.out.println("Would you like to buy this property? If yes enter Y, if no enter N");
+			// 	String decision = input.nextLine();
+
+			// 	if (decision == "Y") {
+			// 		buyProperty(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
+			// 	}
+			// }
+
+
+
 			//ending turn sequence
 			System.out.println(gamePlayers.get(i).getName() + ", press the enter button to end your turn");
             input.nextLine();
             System.out.println("\n"+"#########################################################################"+"\n");
+
+
 		}
 
 	}
 	
-	public void BuyProperty() {
+	public void buyProperty(Player player, Tile tile) {
 		
 	}
-	public void SellProperty() {
+	public void sellProperty() {
 		
 	}
-	public void TradeProperty() {
+	public void tradeProperty() {
 		
 	}
 	public void buySafariPark() {
 
 	}
-	public void payRent() {
+	public void payRent(Player player, Tile tile) {
 
 	}
+	public void takeChanceCard() {
 
+	}
+	public void payTax(Player player, Tile tile) {
+
+	}
+	public void goToJail(Player player) {
+
+	}
 }

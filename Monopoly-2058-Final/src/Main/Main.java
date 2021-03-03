@@ -11,6 +11,7 @@ import PlayerManagement.transactions.LoadPlayerTransaction;
 import Dice.Dice;
 import PlayerManagement.Player;
 import PlayerManagement.transactions.PlayerRollTransaction;
+import PlayerManagement.transactions.RegisterPlayerTransaction;
 import TileManagement.LoadTileTransaction;
 import TileManagement.Tile;
 
@@ -36,7 +37,11 @@ public class Main {
 		m.loadMenu();
 
 		
-		game.turn();
+		for(int i=0; i<RegisterPlayerTransaction.numTurns; i++) {
+            game.turn();
+        }
+
+        System.out.println("game over");
 	}
 	
 
