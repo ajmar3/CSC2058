@@ -22,7 +22,7 @@ public class Tile  implements TileInterface{
         rent = _rent;
         cost_of_safari = _costSafari;
         rent_with_safari = _rentSafari;
-        _type = tileType;
+        tileType = _type;
     }
     public void printDetails(){
         System.out.println("Tile Name: " + name + " | " + "Tile Location: " + location);
