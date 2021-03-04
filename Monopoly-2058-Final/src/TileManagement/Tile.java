@@ -15,7 +15,7 @@ public class Tile  implements TileInterface{
     public String tileType;
 
 
-    public Tile(String _location, String _name, double _cost, double _rent, double _costSafari, double _rentSafari, String _type){
+    public Tile(String _location, String _name, double _cost, double _rent, double _costSafari, double _rentSafari, String _type, boolean _isBuy){
         location = _location;
         name = _name;
         cost = _cost;
@@ -23,6 +23,7 @@ public class Tile  implements TileInterface{
         cost_of_safari = _costSafari;
         rent_with_safari = _rentSafari;
         tileType = _type;
+        buyable = _isBuy;
     }
     public void printDetails(){
         System.out.println("Tile Name: " + name + " | " + "Tile Location: " + location);

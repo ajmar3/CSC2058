@@ -58,22 +58,10 @@ public class GameTransaction {
 					}
 				case "goToJailTile":
 					goToJail(gamePlayers.get(i));
+				case "goTile":
+					//add £200
 			}
 			
-			
-			
-			
-			// if (gamePlayers.get(i).getCurrentTile().isBuyable()) {
-
-			// 	System.out.println("Would you like to buy this property? If yes enter Y, if no enter N");
-			// 	String decision = input.nextLine();
-
-			// 	if (decision == "Y") {
-			// 		buyProperty(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
-			// 	}
-			// }
-
-
 
 			//ending turn sequence
 			System.out.println(gamePlayers.get(i).getName() + ", press the enter button to end your turn");
@@ -86,7 +74,7 @@ public class GameTransaction {
 	}
 	
 	public void buyProperty(Player player, Tile tile) {
-		
+		//here you have option to buy
 	}
 	public void sellProperty() {
 		
@@ -95,12 +83,15 @@ public class GameTransaction {
 		
 	}
 	public void buySafariPark() {
-
+		//only possible if all tiles from given loacation are owned
 	}
 	public void payRent(Player player, Tile tile) {
 
 	}
 	public void takeChanceCard() {
+
+		//array of different chance cards
+		//randomly select one
 
 	}
 	public void payTax(Player player, Tile tile) {
