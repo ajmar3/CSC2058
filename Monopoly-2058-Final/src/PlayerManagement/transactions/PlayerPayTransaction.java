@@ -1,7 +1,5 @@
 package PlayerManagement.transactions;
 
-public class PlayerPayTransaction {
-package PlayerManagement.transactions;
 
 import PlayerManagement.Player;
 import TileManagement.Tile;
@@ -37,4 +35,4 @@ public class PlayerPayTransaction {
 	}
 }
 
-}
+
