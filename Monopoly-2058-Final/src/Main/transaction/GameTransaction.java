@@ -47,7 +47,8 @@ public class GameTransaction {
 				case "chanceTile":
 					
 						takeChanceCard(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
-					break;
+						break;
+					
 				case "taxTile":
 					payTax(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
 					break;
