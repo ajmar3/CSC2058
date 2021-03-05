@@ -34,6 +34,12 @@ public class GameTransaction {
 			//getting a temp value for the index the player is moved to
 			int temp = currentRoll.getDice1() + currentRoll.getDice2() + LoadTileTransaction.gameTiles.indexOf(gamePlayers.get(i).getCurrentTile()); 
 
+			if (temp > 39) {
+				temp = temp - 40;
+				gamePlayers.get(i).setBalance(gamePlayers.get(i).getBalance() + 200);
+				System.out.println(gamePlayers.get(i).getName() + " has passed go and recieved £200!");
+			}
+
 			//setting new currentTile for given player
 			gamePlayers.get(i).setCurrentTile(LoadTileTransaction.gameTiles.get(temp));
 
