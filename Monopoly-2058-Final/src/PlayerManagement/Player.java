@@ -11,6 +11,7 @@ public class Player {
     private Tile currentTile;
     private double balance;
     private List<Tile> ownedTiles = new ArrayList<Tile>();
+    private List<Tile> SafariTiles = new ArrayList<Tile>();
 
     public Player(String _name, double _balance) {
         name = _name;
@@ -19,7 +20,7 @@ public class Player {
     }
 
     public void printDetails(){
-        System.out.println("Name: " + name + " | " + "Balance: �" + balance);
+        System.out.println("Name: " + name + " | " + "Balance: ï¿½" + balance);
     }
 
     public String getName() {
@@ -54,10 +55,24 @@ public class Player {
         this.ownedTiles = ownedTiles;
     }
     
+    public List<Tile> getSafariTiles() {
+        return SafariTiles;
+    }
+
+    public void setSafariTiles(List<Tile> ownedTiles) {
+        this.SafariTiles = ownedTiles;
+    }
+    
     public void addTile(Tile tile){
         ownedTiles.add(tile);
         balance = balance - tile.getCost();
         tile.setBuyable(false);
+    }
+    
+    public void addSafariTiles(Tile tile){
+        /*SafariTiles.add(tile);
+        balance = balance - tile.getCost();
+        tile.setBuyable(false);*/
     }
     public void removeTile(Tile tile) {
     	ownedTiles.remove(tile);
