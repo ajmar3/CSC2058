@@ -1,13 +1,15 @@
 package Main.transaction;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
 import PlayerManagement.Player;
 import PlayerManagement.transactions.RegisterPlayerTransaction;
+import PlayerManagement.transactions.PlayerPayTransaction;
 import PlayerManagement.transactions.PlayerRollTransaction;
 import Dice.Dice;
+import TileManagement.ChanceTileImpl;
 import TileManagement.LoadTileTransaction;
 import TileManagement.Tile;
 
@@ -43,7 +45,8 @@ public class GameTransaction {
 				case "noActionTile":
 					break;
 				case "chanceTile":
-					takeChanceCard();
+					
+						takeChanceCard(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
 					break;
 				case "taxTile":
 					payTax(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
@@ -59,7 +62,7 @@ public class GameTransaction {
 				case "goToJailTile":
 					goToJail(gamePlayers.get(i));
 				case "goTile":
-					//add £200
+					//add Â£200
 			}
 			
 
@@ -74,7 +77,22 @@ public class GameTransaction {
 	}
 	
 	public void buyProperty(Player player, Tile tile) {
+		
+		PlayerPayTransaction pay = new PlayerPayTransaction();
 		//here you have option to buy
+		
+			System.out.println("Are you interested in investing in the property?");
+			String in = input.nextLine();
+			
+			if(in.equalsIgnoreCase("Yes")) {
+				pay.playerBuy(player,tile);
+			}
+			
+			
+			
+				
+
+		
 	}
 	public void sellProperty() {
 		
@@ -82,22 +100,44 @@ public class GameTransaction {
 	public void tradeProperty() {
 		
 	}
-	public void buySafariPark() {
-		//only possible if all tiles from given loacation are owned
+	public void buySafariPark(Player player, Tile tile) {
+		PlayerPayTransaction pay = new PlayerPayTransaction();
+		//only possible if all tiles from given location are owned
+		if(player.getOwnedTiles() == tile) {
+			System.out.println("Are you interested in investing in a Safari Park?");
+			String in = input.nextLine();
+			if(in.equalsIgnoreCase("Yes")) {
+				pay.playerBuySafariPark(player, tile);
+			}
+			
+		}
+			
 	}
 	public void payRent(Player player, Tile tile) {
 
 	}
-	public void takeChanceCard() {
-
+	public void takeChanceCard(Player player, Tile tile) {
 		//array of different chance cards
 		//randomly select one
+		ChanceTileImpl chance = new ChanceTileImpl();
+		chance.drawCard(player, tile);
+		
+		
 
 	}
 	public void payTax(Player player, Tile tile) {
 
 	}
 	public void goToJail(Player player) {
-
+		double jailFee = 200;
+		if(player.getBalance() < jailFee) {
+			//sell Property to get funds to get out
+		}
+		else {
+			double newBalance = player.getBalance() - jailFee;
+			player.setBalance(newBalance);
+			System.out.println("You are free from Jail.");
+		}
+		
 	}
 }
