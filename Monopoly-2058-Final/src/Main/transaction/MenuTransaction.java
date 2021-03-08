@@ -21,7 +21,7 @@ public class MenuTransaction {
 			processChoice(choice);
 			}
 		else if (choice == 4) {
-			System.out.println("game closing now");
+			System.out.println("Game Closing now");
 			System.exit(0);;
 		}
 		// do {

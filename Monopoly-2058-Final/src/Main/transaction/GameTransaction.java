@@ -37,7 +37,7 @@ public class GameTransaction {
 			if (temp > 39) {
 				temp = temp - 40;
 				gamePlayers.get(i).setBalance(gamePlayers.get(i).getBalance() + 200);
-				System.out.println(gamePlayers.get(i).getName() + " has passed go and received Â£200!");
+				System.out.println(gamePlayers.get(i).getName() + " has passed go and received £200!");
 			}
 
 			//setting new currentTile for given player
