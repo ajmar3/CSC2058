@@ -41,7 +41,7 @@ public class Main {
             game.turn();
         }
 
-        System.out.println("game over");
+        System.out.println("Game Over");
 	}
 	
 
