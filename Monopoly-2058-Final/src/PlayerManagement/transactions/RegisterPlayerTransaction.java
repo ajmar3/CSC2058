@@ -51,7 +51,7 @@ public class RegisterPlayerTransaction {
             printDetails();
             
             //getting the amount of turns the game should last for
-            System.out.println("Enter how many turns you want the game to continue for: "+ "\n");
+            System.out.println("Enter how many turns do you want the game to continue for: "+ "\n");
             numTurns = nS.nextInt();
 
             System.out.println("Enter any button to start the game");
