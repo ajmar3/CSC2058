@@ -20,7 +20,7 @@ public class Player {
     }
 
     public void printDetails(){
-        System.out.println("Name: " + name + " | " + "Balance: ï¿½" + balance);
+        System.out.println("Name: " + name + " | " + "Balance: �" + balance);
     }
 
     public String getName() {
