@@ -150,6 +150,7 @@ public class GameTransaction {
 
 	public void goToJail(Player player) {
 		player.setIsInJail(true);
+		player.setCurrentTile(LoadTileTransaction.gameTiles.get(10));
 	}
 
 	public void getOutJail(Player player, int dice1, int dice2) {
@@ -166,7 +167,7 @@ public class GameTransaction {
 				System.out.println(player.getName()
 						+ ", you are now free from jail and are on the visiting jail tile. You may continue on your next turn");
 			} else {
-				System.out.println("You have insufficient funds! You must choose anothe roption on your next turn!");
+				System.out.println("You have insufficient funds! You must choose another option on your next turn!");
 			}
 
 		case 2:
