@@ -9,6 +9,9 @@ public class ChanceTileImpl implements ChanceTileInterface {
 
 		Random rand = new Random();
 		int i = rand.nextInt(9);
+		double newBalance;
+		Tile current;
+		int temp;
 
 		String[] chances = { "Some trees have fallen onto the road, go back to Go!",
 				"You started a fire in the area, go to Jail!",
@@ -21,62 +24,70 @@ public class ChanceTileImpl implements ChanceTileInterface {
 				"A massive storm floods your tent, pay £100 to replace it!",
 				"You are found leaving rubbish at the Congolese Rainforest Conservation Park, pay £200 as a fine!" };
 
-		if (i == 0) {
+		
+		switch(i) {
+		case 0 :
 			System.out.println(chances[0]);
-			Tile current = LoadTileTransaction.gameTiles.get(0);
+			current = LoadTileTransaction.gameTiles.get(0);
 			player.setCurrentTile(current);
 			System.out.println("You have landed on " + player.getCurrentTile().name);
-		} else if (i == 1) {
+			break;
+		case 1:
 			System.out.println(chances[1]);
-			Tile current = LoadTileTransaction.gameTiles.get(30);
+			current = LoadTileTransaction.gameTiles.get(30);
 			player.setCurrentTile(current);
 			System.out.println("You have landed on " + player.getCurrentTile().name);
-		} else if (i == 2) {
+			break;
+		case 2 :
 			System.out.println(chances[2]);
-			int temp = LoadTileTransaction.gameTiles.indexOf(player.getCurrentTile()) - 2;
+			temp = LoadTileTransaction.gameTiles.indexOf(player.getCurrentTile()) - 2;
 			player.setCurrentTile(LoadTileTransaction.gameTiles.get(temp));
 			System.out.println("You have landed on " + player.getCurrentTile().name);
-		} else if (i == 3) {
+			break;
+		case 3 :
 			System.out.println(chances[3]);
-			int temp = LoadTileTransaction.gameTiles.indexOf(player.getCurrentTile()) + 1;
+			temp = LoadTileTransaction.gameTiles.indexOf(player.getCurrentTile()) + 1;
 			player.setCurrentTile(LoadTileTransaction.gameTiles.get(temp));
 			System.out.println("You have landed on " + player.getCurrentTile().name);
-		} else if (i == 4) {
+			break;
+		case 4 :
 			System.out.println(chances[4]);
-			double newBalance = player.getBalance() + 200.00;
+			newBalance = player.getBalance() + 200.00;
 			player.setBalance(newBalance);
 			System.out.println("Your new balance : " + player.getBalance());
-
-		} else if (i == 5) {
+			break;
+		case 5 : 
 			System.out.println(chances[5]);
-			double newBalance = player.getBalance() + 100.00;
+			newBalance = player.getBalance() + 100.00;
 			player.setBalance(newBalance);
 			System.out.println("Your new balance : " + player.getBalance());
-
-		} else if (i == 6) {
+			break;
+		case 6 :
 			System.out.println(chances[6]);
-			double newBalance = player.getBalance() + 100.00;
+			newBalance = player.getBalance() + 100.00;
 			player.setBalance(newBalance);
 			System.out.println("Your new balance : " + player.getBalance());
-
-		} else if (i == 7) {
+		break;
+		case 7 :
 			System.out.println(chances[7]);
-			double newBalance = player.getBalance() - 50.00;
+			newBalance = player.getBalance() - 50.00;
 			player.setBalance(newBalance);
 			System.out.println("Your new balance : " + player.getBalance());
-
-		} else if (i == 8) {
+			break;
+		case 8 :
 			System.out.println(chances[8]);
-			double newBalance = player.getBalance() - 100.00;
+			newBalance = player.getBalance() - 100.00;
 			player.setBalance(newBalance);
 			System.out.println("Your new balance : " + player.getBalance());
-
-		} else if (i == 9) {
+			break;
+		case 9 :
 			System.out.println(chances[9]);
-			double newBalance = player.getBalance() - 200.00;
+			newBalance = player.getBalance() - 200.00;
 			player.setBalance(newBalance);
 			System.out.println("Your new balance : " + player.getBalance());
+			break;
 		}
+		
 
 	}
 }
