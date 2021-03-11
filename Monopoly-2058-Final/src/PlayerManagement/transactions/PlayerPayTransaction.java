@@ -31,6 +31,18 @@ public class PlayerPayTransaction {
 			System.out.println("You now own = " + tile.getName());
 		}
 	}
+	
+	
+public void playerSellTile(Player player, Tile tile) {
+		
+		double newBalance = player.getBalance() + tile.getCost();
+		player.setBalance(newBalance);
+		player.removeTile(tile);
+		
+		System.out.println("Player Balance = " + player.getBalance());
+		System.out.println("you have successfully sold " + " " + tile.getName());
+		
+	}
 }
 
 

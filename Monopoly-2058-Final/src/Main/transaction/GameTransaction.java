@@ -1,5 +1,6 @@
 package Main.transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -83,6 +84,17 @@ public class GameTransaction {
 			case "goTile":
 				// add Â£200
 			}
+			
+			List<Tile> tempList = gamePlayers.get(i).getOwnedTiles();
+			if(!tempList.isEmpty()) {
+		
+			System.out.println("would you like to sell any of your properties  (yes/no)");
+			String res = input.nextLine();
+			if(res.equalsIgnoreCase("yes")) {
+				sellProperty(gamePlayers.get(i));
+			}
+			
+			}
 
 			// ending turn sequence
 			System.out.println(gamePlayers.get(i).getName() + ", press the enter button to end your turn");
@@ -108,8 +120,22 @@ public class GameTransaction {
 
 	}
 
-	public void sellProperty() {
-
+	public void sellProperty(Player player) {
+		PlayerPayTransaction sell = new PlayerPayTransaction();
+		 List<Tile> temp = new ArrayList<Tile>();
+		System.out.println("Select the property you would like to sell from the list using the assigned number");
+		temp = player.getOwnedTiles();
+		for(int i = 0; i<temp.size(); i++) {
+			System.out.println("\n" + i + " " + temp.get(i).getName());
+		}
+		int response = input.nextInt();
+		String res = temp.get(response).getName();
+		Tile t = temp.get(response);
+		
+		System.out.println("you have selected " + " " + res);
+		sell.playerSellTile(player,t );
+	
+		
 	}
 
 	public void tradeProperty() {
