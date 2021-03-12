@@ -170,9 +170,22 @@ public class GameTransaction {
 		 for(int i = 0; i<ptemp.size(); i++) {
 				System.out.println("\n" + i + " " + ptemp.get(i).getName());
 			}
-		 response = input.nextInt();		 
+		 response = input.nextInt();
+		 input.nextLine();
 		 Tile t2 = ptemp.get(response);
+		 
+		 System.out.println(gamePlayers.get(chosen).getName() + " " + "do you wish to accept this trade? (Yes/no)");
+		 String ans = input.nextLine();
+		 
+		 if(ans.equalsIgnoreCase("Yes"))
+		 {
 		 Trade.playerTradeTile(player, playTemp, t1, t2);
+		 }
+		 else {
+			 
+			 System.out.println("Trade has been declined");
+			 
+		 }
 		 
 		 
 		
