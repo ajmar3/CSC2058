@@ -66,10 +66,9 @@ public class Player {
     }
 
     public void addTile(Tile tile) {
-        ownedTiles.add(tile);
-        balance = balance - tile.getCost();
+        ownedTiles.add(tile);      
         tile.setBuyable(false);
-    }
+    } 
 
     public void addSafariTiles(Tile tile) {
         /*

@@ -88,14 +88,16 @@ public class GameTransaction {
 			List<Tile> tempList = gamePlayers.get(i).getOwnedTiles();
 			if(!tempList.isEmpty()) {
 		
-			System.out.println("would you like to sell any of your properties  (yes/no)");
+			System.out.println("would you like to sell or trade any of your properties  (sell/trade/No)");
 			String res = input.nextLine();
-			if(res.equalsIgnoreCase("yes")) {
+			if(res.equalsIgnoreCase("sell")) {
 				sellProperty(gamePlayers.get(i));
+			}
+			if(res.equalsIgnoreCase("trade")) {
+				tradeProperty(gamePlayers.get(i));
 			}
 			
 			}
-
 			// ending turn sequence
 			System.out.println(gamePlayers.get(i).getName() + ", press the enter button to end your turn");
 			input.nextLine();
@@ -105,7 +107,8 @@ public class GameTransaction {
 		}
 
 	}
-
+	
+	
 	public void buyProperty(Player player, Tile tile) {
 
 		PlayerPayTransaction pay = new PlayerPayTransaction();
@@ -138,7 +141,42 @@ public class GameTransaction {
 		
 	}
 
-	public void tradeProperty() {
+	public void tradeProperty(Player player) {
+		
+		System.out.println("Choose the player who you would like to trade with from the list using the assigned number");
+		
+		for(int i = 0; i < gamePlayers.size(); i++) {
+			
+			System.out.println("\n" + i + " " + gamePlayers.get(i).getName());			
+		}
+		
+		int chosen = input.nextInt();
+		
+		PlayerPayTransaction Trade = new PlayerPayTransaction();
+		 List<Tile> temp = new ArrayList<Tile>();
+		System.out.println("Select the property you would like to trade from the list using the assigned number");
+		temp = player.getOwnedTiles();
+		for(int i = 0; i<temp.size(); i++) {
+			System.out.println("\n" + i + " " + temp.get(i).getName());
+		}
+		int response = input.nextInt();
+		String res = temp.get(response).getName();
+		Tile t1 = temp.get(response);
+		
+		 List<Tile> ptemp = new ArrayList<Tile>();
+		 System.out.println("Select the other players property you would like to trade from the list using the assigned number");
+		 Player playTemp = gamePlayers.get(chosen);
+		 ptemp = playTemp.getOwnedTiles();
+		 for(int i = 0; i<ptemp.size(); i++) {
+				System.out.println("\n" + i + " " + ptemp.get(i).getName());
+			}
+		 response = input.nextInt();		 
+		 Tile t2 = ptemp.get(response);
+		 Trade.playerTradeTile(player, playTemp, t1, t2);
+		 
+		 
+		
+		
 
 	}
 

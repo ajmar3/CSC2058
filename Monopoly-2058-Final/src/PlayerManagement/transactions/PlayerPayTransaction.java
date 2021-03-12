@@ -43,6 +43,18 @@ public void playerSellTile(Player player, Tile tile) {
 		System.out.println("you have successfully sold " + " " + tile.getName());
 		
 	}
+
+public void playerTradeTile(Player p1, Player p2, Tile tile1, Tile tile2) {
+	p1.removeTile(tile1);
+	p1.addTile(tile2);
+	p2.removeTile(tile2);
+	p2.addTile(tile1);
+	
+	System.out.println("Trade has been completed successfully");
+	
+	
+	
+}
 }
 
 
