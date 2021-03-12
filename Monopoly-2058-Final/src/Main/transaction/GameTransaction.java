@@ -51,14 +51,8 @@ public class GameTransaction {
 			// setting new currentTile for given player
 			gamePlayers.get(i).setCurrentTile(LoadTileTransaction.gameTiles.get(temp));
 
-			System.out.println(
-					gamePlayers.get(i).getName() + " has landed on " + gamePlayers.get(i).getCurrentTile().name); // output
-																													// show
-																													// what
-																													// tile
-																													// player
-																													// now
-																													// on
+			System.out.println(gamePlayers.get(i).getName() + " You have landed on:");
+			gamePlayers.get(i).getCurrentTile().printDetails();
 
 			switch (gamePlayers.get(i).getCurrentTile().getTileType()) {
 
@@ -84,20 +78,28 @@ public class GameTransaction {
 			case "goTile":
 				// add Â£200
 			}
-			
+
+			// getting list of player owned tiles
 			List<Tile> tempList = gamePlayers.get(i).getOwnedTiles();
-			if(!tempList.isEmpty()) {
-		
-			System.out.println("would you like to sell or trade any of your properties  (sell/trade/No)");
-			String res = input.nextLine();
-			if(res.equalsIgnoreCase("sell")) {
-				sellProperty(gamePlayers.get(i));
+
+			// option to sell or tarde current properties.
+			if (!tempList.isEmpty()) {
+
+				System.out.println("would you like to sell or trade any of your properties  (sell/trade/No)");
+				String res = input.nextLine();
+				if (res.equalsIgnoreCase("sell")) {
+					sellProperty(gamePlayers.get(i));
+				}
+				if (res.equalsIgnoreCase("trade")) {
+					tradeProperty(gamePlayers.get(i));
+				}
 			}
-			if(res.equalsIgnoreCase("trade")) {
-				tradeProperty(gamePlayers.get(i));
+
+			// option to buy safari park
+			if (checkSafariBuyable(gamePlayers.get(i))) {
+				buySafariPark(gamePlayers.get(i));
 			}
-			
-			}
+
 			// ending turn sequence
 			System.out.println(gamePlayers.get(i).getName() + ", press the enter button to end your turn");
 			input.nextLine();
@@ -107,8 +109,7 @@ public class GameTransaction {
 		}
 
 	}
-	
-	
+
 	public void buyProperty(Player player, Tile tile) {
 
 		PlayerPayTransaction pay = new PlayerPayTransaction();
@@ -125,84 +126,89 @@ public class GameTransaction {
 
 	public void sellProperty(Player player) {
 		PlayerPayTransaction sell = new PlayerPayTransaction();
-		 List<Tile> temp = new ArrayList<Tile>();
+		List<Tile> temp = new ArrayList<Tile>();
 		System.out.println("Select the property you would like to sell from the list using the assigned number");
 		temp = player.getOwnedTiles();
-		for(int i = 0; i<temp.size(); i++) {
+		for (int i = 0; i < temp.size(); i++) {
 			System.out.println("\n" + i + " " + temp.get(i).getName());
 		}
 		int response = input.nextInt();
 		String res = temp.get(response).getName();
 		Tile t = temp.get(response);
-		
+
 		System.out.println("you have selected " + " " + res);
-		sell.playerSellTile(player,t );
-	
-		
+		sell.playerSellTile(player, t);
+
 	}
 
 	public void tradeProperty(Player player) {
-		
-		System.out.println("Choose the player who you would like to trade with from the list using the assigned number");
-		
-		for(int i = 0; i < gamePlayers.size(); i++) {
-			
-			System.out.println("\n" + i + " " + gamePlayers.get(i).getName());			
+
+		System.out
+				.println("Choose the player who you would like to trade with from the list using the assigned number");
+
+		for (int i = 0; i < gamePlayers.size(); i++) {
+
+			System.out.println("\n" + i + " " + gamePlayers.get(i).getName());
 		}
-		
+
 		int chosen = input.nextInt();
-		
+
 		PlayerPayTransaction Trade = new PlayerPayTransaction();
-		 List<Tile> temp = new ArrayList<Tile>();
+		List<Tile> temp = new ArrayList<Tile>();
 		System.out.println("Select the property you would like to trade from the list using the assigned number");
 		temp = player.getOwnedTiles();
-		for(int i = 0; i<temp.size(); i++) {
+		for (int i = 0; i < temp.size(); i++) {
 			System.out.println("\n" + i + " " + temp.get(i).getName());
 		}
 		int response = input.nextInt();
 		String res = temp.get(response).getName();
 		Tile t1 = temp.get(response);
-		
-		 List<Tile> ptemp = new ArrayList<Tile>();
-		 System.out.println("Select the other players property you would like to trade from the list using the assigned number");
-		 Player playTemp = gamePlayers.get(chosen);
-		 ptemp = playTemp.getOwnedTiles();
-		 for(int i = 0; i<ptemp.size(); i++) {
-				System.out.println("\n" + i + " " + ptemp.get(i).getName());
-			}
-		 response = input.nextInt();
-		 input.nextLine();
-		 Tile t2 = ptemp.get(response);
-		 
-		 System.out.println(gamePlayers.get(chosen).getName() + " " + "do you wish to accept this trade? (Yes/no)");
-		 String ans = input.nextLine();
-		 
-		 if(ans.equalsIgnoreCase("Yes"))
-		 {
-		 Trade.playerTradeTile(player, playTemp, t1, t2);
-		 }
-		 else {
-			 
-			 System.out.println("Trade has been declined");
-			 
-		 }
-		 
-		 
-		
-		
+
+		List<Tile> ptemp = new ArrayList<Tile>();
+		System.out.println(
+				"Select the other players property you would like to trade from the list using the assigned number");
+		Player playTemp = gamePlayers.get(chosen);
+		ptemp = playTemp.getOwnedTiles();
+		for (int i = 0; i < ptemp.size(); i++) {
+			System.out.println("\n" + i + " " + ptemp.get(i).getName());
+		}
+		response = input.nextInt();
+		input.nextLine();
+		Tile t2 = ptemp.get(response);
+
+		System.out.println(gamePlayers.get(chosen).getName() + " " + "do you wish to accept this trade? (Yes/no)");
+		String ans = input.nextLine();
+
+		if (ans.equalsIgnoreCase("Yes")) {
+			Trade.playerTradeTile(player, playTemp, t1, t2);
+		} else {
+
+			System.out.println("Trade has been declined");
+
+		}
 
 	}
 
-	public void buySafariPark(Player player, Tile tile) {
-		PlayerPayTransaction pay = new PlayerPayTransaction();
-		// only possible if all tiles from given location are owned
-		if (player.getOwnedTiles() == tile) {
-			System.out.println("Are you interested in investing in a Safari Park?");
-			String in = input.nextLine();
-			if (in.equalsIgnoreCase("Yes")) {
-				pay.playerBuySafariPark(player, tile);
+	public void buySafariPark(Player player) {
+		System.out.println(
+				player.getName() + ", are you interested in building a safari park on one of your conservation parks?");
+		String playerChoice = input.nextLine();
+		playerChoice = playerChoice.toLowerCase();
+		if (playerChoice != "yes") {
+			return;
+		} else {
+			System.out.println("Here are all the tiles you can currently build a safari park on: ");
+			List<Tile> potentialLoactions = this.getSafariParkPotentialLocations(player);
+			for (int k = 0; k < potentialLoactions.size(); k++) {
+				System.out.println(k + potentialLoactions.get(k).getName());
 			}
-
+			System.out.println("Please enter the index of the tile you want to build a safari park on:");
+			int index = input.nextInt();
+			potentialLoactions.get(index).setRent(potentialLoactions.get(index).getRentWithSafari());
+			potentialLoactions.get(index).setSafariBuildable(false);
+			player.setBalance(player.getBalance() - potentialLoactions.get(index).getCostOfSafari());
+			System.out.println("Safari park purchased for tile: " + potentialLoactions.get(index).name);
+			System.out.println(player.getName() + " now has a balance of £" + player.getBalance());
 		}
 
 	}
@@ -261,5 +267,59 @@ public class GameTransaction {
 			}
 
 		}
+	}
+
+	public boolean checkSafariBuyable(Player player) {
+
+		for (int k = 0; k < player.getOwnedTiles().size(); k++) {
+			String thisTilelocation = player.getOwnedTiles().get(k).location;
+			int numOwnedFromThisLocation = 0;
+			int totalFromThisLocation = 0;
+			for (int m = 0; m < LoadTileTransaction.gameTiles.size(); m++) {
+				if (LoadTileTransaction.gameTiles.get(m).location == thisTilelocation) {
+					totalFromThisLocation++;
+				}
+			}
+			for (int y = 0; y < player.getOwnedTiles().size(); y++) {
+				if (player.getOwnedTiles().get(y).location == thisTilelocation) {
+					numOwnedFromThisLocation++;
+				}
+			}
+
+			if ((totalFromThisLocation == numOwnedFromThisLocation)
+					&& (player.getOwnedTiles().get(k).getSafariBuildable() == true)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public List<Tile> getSafariParkPotentialLocations(Player player) {
+
+		List<Tile> potentialLocations = new ArrayList<Tile>();
+
+		for (int k = 0; k < player.getOwnedTiles().size(); k++) {
+			String thisTilelocation = player.getOwnedTiles().get(k).location;
+			int numOwnedFromThisLocation = 0;
+			int totalFromThisLocation = 0;
+			for (int m = 0; m < LoadTileTransaction.gameTiles.size(); m++) {
+				if (LoadTileTransaction.gameTiles.get(m).location == thisTilelocation) {
+					totalFromThisLocation++;
+				}
+			}
+			for (int y = 0; y < player.getOwnedTiles().size(); y++) {
+				if (player.getOwnedTiles().get(y).location == thisTilelocation) {
+					numOwnedFromThisLocation++;
+				}
+			}
+
+			if ((totalFromThisLocation == numOwnedFromThisLocation)
+					&& (player.getOwnedTiles().get(k).getSafariBuildable() == true)) {
+				potentialLocations.add(player.getOwnedTiles().get(k));
+			}
+		}
+
+		return potentialLocations;
+
 	}
 }

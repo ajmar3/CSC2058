@@ -22,7 +22,7 @@ public class Player {
     }
 
     public void printDetails() {
-        System.out.println("Name: " + name + " | " + "Balance: �" + balance);
+        System.out.println("Name: " + name + " | " + "Balance: £" + balance);
     }
 
     public String getName() {
@@ -66,9 +66,9 @@ public class Player {
     }
 
     public void addTile(Tile tile) {
-        ownedTiles.add(tile);      
+        ownedTiles.add(tile);
         tile.setBuyable(false);
-    } 
+    }
 
     public void addSafariTiles(Tile tile) {
         /*
