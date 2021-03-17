@@ -1,6 +1,7 @@
 package Main.transaction;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,6 +22,21 @@ public class GameTransaction {
 	private static Dice currentRoll;
 
 	private static Scanner input = new Scanner(System.in);
+	
+	public enum tradeAns
+	{
+		sell,
+		trade,
+		no
+	}
+	
+	public enum yesNo
+	{
+		yes,
+		no
+	}
+	
+	boolean holder = false;
 
 	public void turn() {
 
@@ -45,7 +61,7 @@ public class GameTransaction {
 			if (temp > 39) {
 				temp = temp - 40;
 				gamePlayers.get(i).setBalance(gamePlayers.get(i).getBalance() + 200);
-				System.out.println(gamePlayers.get(i).getName() + " has passed go and received Â£200!");
+				System.out.println(gamePlayers.get(i).getName() + " has passed go and received £200!");
 			}
 
 			// setting new currentTile for given player
@@ -69,6 +85,7 @@ public class GameTransaction {
 			case "propertyTile":
 				if (gamePlayers.get(i).getCurrentTile().isBuyable()) {
 					buyProperty(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
+					holder = false;
 					break;
 				} else {
 					payRent(gamePlayers.get(i), gamePlayers.get(i).getCurrentTile());
@@ -81,18 +98,43 @@ public class GameTransaction {
 
 			// getting list of player owned tiles
 			List<Tile> tempList = gamePlayers.get(i).getOwnedTiles();
-
+		 boolean hold = false;
+		
 			// option to sell or tarde current properties.
 			if (!tempList.isEmpty()) {
-
+				
+				 while(hold == false)
+				    {
 				System.out.println("would you like to sell or trade any of your properties  (sell/trade/No)");
 				String res = input.nextLine();
-				if (res.equalsIgnoreCase("sell")) {
-					sellProperty(gamePlayers.get(i));
-				}
-				if (res.equalsIgnoreCase("trade")) {
-					tradeProperty(gamePlayers.get(i));
-				}
+				
+				//tradeAns.valueOf(res);
+				EnumSet<tradeAns> except = EnumSet.of(tradeAns.sell, tradeAns.trade, tradeAns.no);
+
+			    boolean valid;
+			  
+			   
+			    try {
+			       valid = !except.contains(tradeAns.valueOf(res));
+			       
+			       if (res.equalsIgnoreCase("sell")) {
+						sellProperty(gamePlayers.get(i));
+					}
+					if (res.equalsIgnoreCase("trade")) {
+						tradeProperty(gamePlayers.get(i));
+					}
+					if(res.equalsIgnoreCase("no")) {
+						hold = true;
+					}
+					hold = true;
+			    }
+			    catch (IllegalArgumentException e)
+			    { valid = false; }
+			   			  
+			    
+			    }
+			   
+				
 			}
 
 			// option to buy safari park
@@ -110,41 +152,79 @@ public class GameTransaction {
 
 	}
 
-	public void buyProperty(Player player, Tile tile) {
+	public void buyProperty(Player player, Tile tile) 
+	{
 
 		PlayerPayTransaction pay = new PlayerPayTransaction();
 		// here you have option to buy
+		
+		while(holder == false)
+		{
+			System.out.println("Are you interested in investing in the property?");
+			String in = input.nextLine();
+		
+			boolean valid;
+		
+			EnumSet<yesNo> except = EnumSet.of(yesNo.yes, yesNo.no);
+		  
+		   
+			try
+			{
+				valid = !except.contains(yesNo.valueOf(in));	       
+	      			
+				if (in.equalsIgnoreCase("Yes")) {
+				pay.playerBuy(player, tile);
+			}
+				if(in.equalsIgnoreCase("no")) 
+				{
+					return;
+				}
+				holder = true;
 
-		System.out.println("Are you interested in investing in the property?");
-		String in = input.nextLine();
-
-		if (in.equalsIgnoreCase("Yes")) {
-			pay.playerBuy(player, tile);
-		}
-
+			}
+			catch (IllegalArgumentException e)
+			{ valid = false; 
+			System.out.println("Please select one of the choices");	
+			}
+	    
+	    }
+		
 	}
+	
 
 	public void sellProperty(Player player) {
 		PlayerPayTransaction sell = new PlayerPayTransaction();
 		List<Tile> temp = new ArrayList<Tile>();
 		System.out.println("Select the property you would like to sell from the list using the assigned number");
 		temp = player.getOwnedTiles();
-		for (int i = 0; i < temp.size(); i++) {
-			System.out.println("\n" + i + " " + temp.get(i).getName());
-		}
-		int response = input.nextInt();
-		String res = temp.get(response).getName();
-		Tile t = temp.get(response);
+		while(holder = false)
+		{
+			try
+			{
+				for (int i = 0; i < temp.size(); i++)
+				{
+					System.out.println("\n" + i + " " + temp.get(i).getName());
+				}
+				int response = input.nextInt();
+				input.nextLine();
+				String res = temp.get(response).getName();
+				Tile t = temp.get(response);
 
-		System.out.println("you have selected " + " " + res);
-		sell.playerSellTile(player, t);
+				System.out.println("you have selected " + " " + res);
+				sell.playerSellTile(player, t);
+			}
+			catch(Exception e) 
+			{
+			
+			}
+		
+		}
 
 	}
 
 	public void tradeProperty(Player player) {
 
-		System.out
-				.println("Choose the player who you would like to trade with from the list using the assigned number");
+		System.out.println("Choose the player who you would like to trade with from the list using the assigned number");
 
 		for (int i = 0; i < gamePlayers.size(); i++) {
 
@@ -160,7 +240,7 @@ public class GameTransaction {
 		for (int i = 0; i < temp.size(); i++) {
 			System.out.println("\n" + i + " " + temp.get(i).getName());
 		}
-		int response = input.nextInt();
+		int response = input.nextInt();		
 		String res = temp.get(response).getName();
 		Tile t1 = temp.get(response);
 
@@ -172,16 +252,17 @@ public class GameTransaction {
 		for (int i = 0; i < ptemp.size(); i++) {
 			System.out.println("\n" + i + " " + ptemp.get(i).getName());
 		}
-		response = input.nextInt();
-		input.nextLine();
+		response = input.nextInt();		
 		Tile t2 = ptemp.get(response);
+		input.nextLine();
 
 		System.out.println(gamePlayers.get(chosen).getName() + " " + "do you wish to accept this trade? (Yes/no)");
 		String ans = input.nextLine();
 
 		if (ans.equalsIgnoreCase("Yes")) {
 			Trade.playerTradeTile(player, playTemp, t1, t2);
-		} else {
+		}
+		else {
 
 			System.out.println("Trade has been declined");
 
@@ -204,6 +285,7 @@ public class GameTransaction {
 			}
 			System.out.println("Please enter the index of the tile you want to build a safari park on:");
 			int index = input.nextInt();
+			input.nextLine();
 			potentialLoactions.get(index).setRent(potentialLoactions.get(index).getRentWithSafari());
 			potentialLoactions.get(index).setSafariBuildable(false);
 			player.setBalance(player.getBalance() - potentialLoactions.get(index).getCostOfSafari());
@@ -213,8 +295,55 @@ public class GameTransaction {
 
 	}
 
-	public void payRent(Player player, Tile tile) {
-
+	public void payRent(Player player, Tile tile) 
+	{
+		
+		List<Tile> temp = new ArrayList<Tile>();
+		temp = player.getOwnedTiles();
+		boolean hol = false;
+		
+		if(player.getBalance() >= player.getCurrentTile().getRent()) 
+		{
+		System.out.println(player.getName() + "  you must pay £" + player.getCurrentTile().getRent());
+		player.setBalance(player.getBalance() - player.getCurrentTile().getRent());
+		System.out.println("Your new balance is £" + player.getBalance());
+		}
+		else if(!temp.isEmpty())
+		{
+			System.out.println("You do not have sufficient funds to pay the rent you are being forced to liquidate your assets");
+			liquidate(player);
+		}
+		else {
+			System.out.println("You have gone bust and have lost");
+			removePlayer(player);
+		}
+	}
+	
+	public void removePlayer(Player player) 
+	{
+		gamePlayers.remove(player);
+		System.out.println("You have been removed from the game");
+		if(gamePlayers.size() <= 1)
+		{
+			endGame();
+		}
+	}
+	public void endGame()
+	{
+		System.out.println("the other players have gone bankrupt you have won");
+		
+	}
+	public void liquidate(Player player) 
+	{		
+		Tile t;
+		PlayerPayTransaction sell = new PlayerPayTransaction();
+		List<Tile> temp = new ArrayList<Tile>();
+		temp = player.getOwnedTiles();	
+		for (int i = 0; i < temp.size(); i++)
+		{
+			t = temp.get(i);		
+			sell.playerSellTile(player, t);
+		}
 	}
 
 	public void takeChanceCard(Player player, Tile tile) {
@@ -225,10 +354,23 @@ public class GameTransaction {
 
 	}
 
-	public void payTax(Player player, Tile tile) {
-		System.out.println(player.getName() + "  you must pay Â£" + player.getCurrentTile().getRent());
+	public void payTax(Player player, Tile tile) 
+	{
+		List<Tile> temp = new ArrayList<Tile>();
+		temp = player.getOwnedTiles();
+		boolean hol = false;
+		
+		if(player.getBalance() >= player.getCurrentTile().getRent()) 
+		{
+		System.out.println(player.getName() + "  you must pay £" + player.getCurrentTile().getRent());
 		player.setBalance(player.getBalance() - player.getCurrentTile().getRent());
 		System.out.println("Your new balance is Â£" + player.getBalance());
+		}
+		else 
+		{
+			System.out.println("You do not have sufficient funds to pay the tax and have been sent to jail");
+			goToJail(player);
+		}		
 	}
 
 	public void goToJail(Player player) {
@@ -240,22 +382,27 @@ public class GameTransaction {
 		System.out.println(player.getName()
 				+ ", you are currently in jail! To get out you can \n  1. pay the Â£200 jail fee. \n 2. attempt to roll a double. \n Enter your choice: ");
 		int choice = input.nextInt();
+		input.nextLine();
 
 		switch (choice) {
 		case 1:
-			if (player.getBalance() >= 200) {
+			if (player.getBalance() >= 200)
+			{
 				player.setBalance(player.getBalance() - 200);
 				player.setIsInJail(false);
 				player.setCurrentTile(LoadTileTransaction.gameTiles.get(10));
 				System.out.println(player.getName()
 						+ ", you are now free from jail and are on the visiting jail tile. You may continue on your next turn");
-			} else {
+			} 
+			else 
+			{
 				System.out.println("You have insufficient funds! You must choose another option on your next turn!");
 			}
 
 		case 2:
 			System.out.println("press enter to make your roll");
-			if (dice1 == dice2) {
+			if (dice1 == dice2) 
+			{
 				System.out.println("You have rolled " + String.valueOf(dice1) + String.valueOf(dice2));
 				player.setIsInJail(false);
 				player.setCurrentTile(LoadTileTransaction.gameTiles.get(10));
