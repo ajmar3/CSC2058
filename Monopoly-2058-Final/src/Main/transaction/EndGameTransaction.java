@@ -1,0 +1,53 @@
+package Main.transaction;
+
+import java.util.List;
+
+import DataManagement.SQL;
+import PlayerManagement.Player;
+
+public class EndGameTransaction {
+	
+	static SQL sql = new SQL();
+	
+	public void endGame(List<Player> gamePlayers)
+	{
+		double temp = 0;
+		Player winner = null;
+		
+		double tbal = 0;
+		double tproperty = 0;
+		
+		for(int i = 0; i < gamePlayers.size(); i++) {
+			
+			tbal = gamePlayers.get(i).getBalance();
+			
+			for(int x = 0; x < gamePlayers.get(i).getOwnedTiles().size(); x++) {
+				tproperty += gamePlayers.get(i).getOwnedTiles().get(x).getCost();
+				winner = gamePlayers.get(i);
+			}
+			
+			if(temp > (tbal + tproperty)) {
+				temp = tbal + tproperty;
+				winner = gamePlayers.get(i);
+			}
+			else {
+				temp = tbal + tproperty;
+			}
+		}
+		
+		System.out.println("The winner of the game is " + winner.getName() + " with a total value of £" + temp);
+		dataManage(winner, temp);
+		
+		
+	}
+	
+	public void dataManage(Player w, double t) {
+		sql.Storage();
+		
+		if(sql.Search(w.getName())) {
+			sql.Update(w.getName(), t);
+		}
+		else { sql.Write(w.getName(), t);
+		}
+	}
+}

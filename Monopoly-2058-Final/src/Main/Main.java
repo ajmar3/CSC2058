@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import DataManagement.SQL;
+import Main.transaction.EndGameTransaction;
 import Main.transaction.GameTransaction;
 import Main.transaction.MenuTransaction;
 import PlayerManagement.transactions.LoadPlayerTransaction;
@@ -22,6 +24,8 @@ public class Main {
     static LoadPlayerTransaction lp = new LoadPlayerTransaction();
     static GameTransaction game = new GameTransaction();
     static LoadTileTransaction tiles = new LoadTileTransaction();
+    static EndGameTransaction egt = new EndGameTransaction();
+    private static SQL sql = new SQL();
 
     private static Scanner nS = new Scanner(System.in);
     private static List<Player> Players;
@@ -33,14 +37,22 @@ public class Main {
 
         tiles.loadTiles(); // loading all tiles from board as they are needed to register players in
                            // m.loadmenu()
-
+        sql.Storage();
+        sql.Retrieve();
+        
         m.loadMenu();
+        
+        Players = RegisterPlayerTransaction.gamePlayers;
 
-        for (int i = 0; i < RegisterPlayerTransaction.numTurns; i++) {
-            game.turn();
+        for (int i = 0; i <= RegisterPlayerTransaction.numTurns; i++) {
+        	if(i == RegisterPlayerTransaction.numTurns) {
+        		egt.endGame(Players);
+        	}
+        	else {
+        		game.turn();
+        	}
+            
         }
-
-        System.out.println("Game Over");
     }
 
 }

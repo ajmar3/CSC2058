@@ -1,5 +1,6 @@
 package Main.transaction;
 
+import DataManagement.SQL;
 import Main.Menu;
 import PlayerManagement.transactions.HighscoresTransaction;
 import PlayerManagement.transactions.RegisterPlayerTransaction;
@@ -9,6 +10,7 @@ public class MenuTransaction {
 	static RegisterPlayerTransaction RP = new RegisterPlayerTransaction();
 	static HighscoresTransaction HS = new HighscoresTransaction();
 	static HowToPlayTransaction HTP = new HowToPlayTransaction();
+	static SQL sql = new SQL();
 	
 	public void loadMenu() {
 		int choice = 0;
