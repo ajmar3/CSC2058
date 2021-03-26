@@ -14,29 +14,44 @@ public class RegisterPlayerTransaction {
 
     public static int numTurns;
 
-    public List<Player> RegisterPlayers() {
+    public List<Player> RegisterPlayers() 
+    {
 
         System.out.print("Enter the amount of players entering your game: ");
         int amount = nS.nextInt();
         nS.nextLine();
         String pname;
+        boolean holder = false;
 
         // check if name has already been entered by player
         for (int i = 0; i < amount; i++) {
-            System.out.println("Enter the name of player " + (i + 1) + ": ");
+        	//while(holder == false) {
+            System.out.println("Enter the name of player " + (i + 1) + ": ");            
             pname = nS.nextLine();
-            while (!nameDuplicationCheck(pname)) {
+           /* if(pname.startsWith("\"") || pname.endsWith("\""))
+            {
+            	holder = false;
+            }
+            else 
+            {
+            	holder = true;
+            }
+        	}*/
+        	
+            while (!nameDuplicationCheck(pname))
+            {
                 System.out.print("This player name has already been entered! \n\n");
                 System.out.println("Enter the name of player " + (i + 1) + ": ");
                 pname = nS.nextLine();
-                if (nameDuplicationCheck(pname)) {
+                if (nameDuplicationCheck(pname)) 
+                {
                     continue;
-                } else {
+                } else 
+                {
                     continue;
                 }
-            }
-
-            gamePlayers.add(new Player(pname, 150000));
+            }        
+            gamePlayers.add(new Player(pname, 150000));    
         }
 
         if (!securityCheck()) {
@@ -69,7 +84,7 @@ public class RegisterPlayerTransaction {
     public boolean nameDuplicationCheck(String name) // check if player name has already been used
     {
         for (int i = 0; i < gamePlayers.size(); i++) {
-            if (gamePlayers.get(i).getName().contains(name)) {
+            if (gamePlayers.get(i).getName().equalsIgnoreCase(name)) {
                 return false;
             } else {
                 continue;
@@ -88,6 +103,19 @@ public class RegisterPlayerTransaction {
             }
         }
         return true;
+    }
+    
+    public boolean sqlCheck(String name) {
+    	
+    	for (int i = 0; i < gamePlayers.size(); i++) {
+            if (gamePlayers.get(i).getName().startsWith("\"")|| gamePlayers.get(i).getName().endsWith("\"")){
+                return false;
+            } else {
+                continue;
+            }
+    	}
+		return true;
+    	
     }
 
     public static void printDetails() {

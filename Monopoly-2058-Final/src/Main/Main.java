@@ -25,7 +25,7 @@ public class Main {
     static GameTransaction game = new GameTransaction();
     static LoadTileTransaction tiles = new LoadTileTransaction();
     static EndGameTransaction egt = new EndGameTransaction();
-    private static SQL sql = new SQL();
+    //private static SQL sql = new SQL();
 
     private static Scanner nS = new Scanner(System.in);
     private static List<Player> Players;
@@ -37,8 +37,8 @@ public class Main {
 
         tiles.loadTiles(); // loading all tiles from board as they are needed to register players in
                            // m.loadmenu()
-        sql.Storage();
-        sql.Retrieve();
+       // sql.Storage();
+       // sql.Retrieve();
         
         m.loadMenu();
         

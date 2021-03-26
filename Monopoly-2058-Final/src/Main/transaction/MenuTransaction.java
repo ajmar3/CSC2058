@@ -42,14 +42,12 @@ public class MenuTransaction {
 		case 1:
 			RP.RegisterPlayers();			
 			break;
-		case 2:
+		case 2:		
 			HS.LoadHighscores();
 			break;
 		case 3:
 			HTP.ShowRules();
-			break;
-		case 4:
-			break;
+			break;		
 		default:
 			System.out.println("That is not a valid option. Please choose another number.");
 			break;
