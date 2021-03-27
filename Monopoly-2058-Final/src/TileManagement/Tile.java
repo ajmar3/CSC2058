@@ -15,6 +15,7 @@ public class Tile implements TileInterface {
     public String tileType;
     public boolean safariBuildable;
 
+    
     public Tile(String _location, String _name, double _cost, double _rent, double _costSafari, double _rentSafari,
             String _type, boolean _isBuy) {
         location = _location;
@@ -27,6 +28,7 @@ public class Tile implements TileInterface {
         buyable = _isBuy;
         safariBuildable = true;
     }
+    
 
     public void printDetails() {
         if (location != "N/A") {
@@ -102,5 +104,13 @@ public class Tile implements TileInterface {
 
     public boolean getSafariBuildable() {
         return safariBuildable;
+    }
+    
+    public void setOwner(Player owner) {
+    	this.owner = owner;
+    }
+    
+    public Player getOwner() {
+    	return owner;
     }
 }

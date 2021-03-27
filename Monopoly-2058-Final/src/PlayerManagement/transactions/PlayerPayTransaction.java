@@ -10,7 +10,9 @@ public class PlayerPayTransaction {
 	
 			double newBalance = player.getBalance() - tile.getCost();
 			player.setBalance(newBalance);
+			
 			player.addTile(tile);
+			tile.setOwner(player);
 			
 			System.out.println("Player Balance = " + player.getBalance());
 			System.out.println("You now own = " + tile.getName());
@@ -18,6 +20,7 @@ public class PlayerPayTransaction {
 
 		
 		
+			
 	}
 	
 	public void playerBuySafariPark(Player player, Tile tile) {
@@ -26,6 +29,7 @@ public class PlayerPayTransaction {
 			double newBalance = player.getBalance() - tile.getCostOfSafari();
 			player.setBalance(newBalance);
 			player.addSafariTiles(tile);
+			tile.setOwner(player);
 			
 			System.out.println("Player Balance = " + player.getBalance());
 			System.out.println("You now own = " + tile.getName());
@@ -38,6 +42,7 @@ public void playerSellTile(Player player, Tile tile) {
 		double newBalance = player.getBalance() + tile.getCost();
 		player.setBalance(newBalance);
 		player.removeTile(tile);
+		tile.setOwner(null);
 		
 		System.out.println("Player Balance = " + player.getBalance());
 		System.out.println("you have successfully sold " + " " + tile.getName());

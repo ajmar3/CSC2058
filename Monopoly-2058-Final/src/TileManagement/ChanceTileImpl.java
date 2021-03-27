@@ -23,6 +23,7 @@ public class ChanceTileImpl implements ChanceTileInterface {
 				"You are caught pulling faces at the orangutan by the zookeeper, pay £50!",
 				"A massive storm floods your tent, pay £100 to replace it!",
 				"You are found leaving rubbish at the Congolese Rainforest Conservation Park, pay £200 as a fine!" };
+		
 
 		
 		switch(i) {

@@ -162,14 +162,14 @@ public class GameTransaction {
 		
 		while(holder == false)
 		{
-			System.out.println("Are you interested in investing in the property?");
+			System.out.println("Are you interested in investing in the property?  (yes/no)");
+			System.out.println("Cost: £" + tile.cost);
 			String in = input.nextLine();
 		
 			boolean valid;
 		
 			EnumSet<yesNo> except = EnumSet.of(yesNo.yes, yesNo.no);
-		  
-		   
+
 			try
 			{
 				valid = !except.contains(yesNo.valueOf(in));	       
@@ -207,7 +207,7 @@ public class GameTransaction {
 				
 				for (int i = 0; i < temp.size(); i++)
 				{
-					System.out.println("\n" + i + " " + temp.get(i).getName());
+					System.out.println("\n" + i + " " + temp.get(i).getName() + " Amount: " + temp.get(i).getCost());
 				}
 				
 				String response = input.nextLine();
@@ -380,7 +380,7 @@ public class GameTransaction {
 		boolean holder = false;
 		while(holder == false)
     	{  
-			System.out.println(player.getName() + ", are you interested in building a safari park on one of your conservation parks?");
+			System.out.println(player.getName() + ", are you interested in building a safari park on one of your conservation parks?  (yes/no)");
 			String playerChoice = input.nextLine();
 			playerChoice = playerChoice.toLowerCase();
 			boolean valid;                	
@@ -396,7 +396,7 @@ public class GameTransaction {
 				List<Tile> potentialLoactions = this.getSafariParkPotentialLocations(player);
 				for (int k = 0; k < potentialLoactions.size(); k++)
 				{
-					System.out.println(k + " " + potentialLoactions.get(k).getName());
+					System.out.println(k + " " + potentialLoactions.get(k).getName() + " Price: £" + potentialLoactions.get(k).getCostOfSafari());
 				}
 				System.out.println("\n Please enter the index of the tile you want to build a safari park on:");
 				String index = input.nextLine();				
@@ -451,9 +451,12 @@ public class GameTransaction {
 		
 		if(player.getBalance() >= player.getCurrentTile().getRent()) 
 		{
+			System.out.println("Player " + tile.getOwner().getName() + " owns this tile!");
 			System.out.println(player.getName() + "  you must pay £" + player.getCurrentTile().getRent());
 			player.setBalance(player.getBalance() - player.getCurrentTile().getRent());
 			System.out.println("Your new balance is £" + player.getBalance());
+			Player x = tile.getOwner();
+			x.setBalance(x.getBalance() + tile.getRent());
 		}
 		else if(!temp.isEmpty())
 		{

@@ -25,18 +25,23 @@ public class EndGameTransaction {
 			
 			for(int x = 0; x < gamePlayers.get(i).getOwnedTiles().size(); x++) {				
 				tproperty += gamePlayers.get(i).getOwnedTiles().get(x).getCost();
-				winner = gamePlayers.get(i);
-				
 			}
 			
-			if(temp > (tbal + tproperty)) {
+			System.out.println("Value of Player " + gamePlayers.get(i).getName() + " | " + (tbal + tproperty));
+			
+			if(i == 0) {
 				temp = tbal + tproperty;
 				winner = gamePlayers.get(i);
 			}
 			else {
-				temp = tbal + tproperty;
-				
+				if(temp < (tbal + tproperty)) {
+					temp = tbal + tproperty;
+					winner = gamePlayers.get(i);
+				}
 			}
+			
+			
+			
 		
 		}
 		

@@ -53,6 +53,7 @@ public class LoadTileTransaction {
         Tile t37 = new Tile("South Africa", "Black Rhino", 350, 35, 800, 1100, "propertyTile", true);
         Tile t38 = new Tile("N/A","Chance", 0, 0, 0, 0, "chanceTile", false);
         Tile t39 = new Tile("South Africa", "White Lion", 400, 50, 800, 1400, "propertyTile", true);
+        
 
 
         //adding tiles to list
