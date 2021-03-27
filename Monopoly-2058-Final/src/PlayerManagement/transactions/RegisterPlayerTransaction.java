@@ -52,12 +52,10 @@ public class RegisterPlayerTransaction {
         	
             System.out.println("Enter the name of player " + (i + 1) + ": ");            
             pname = nS.nextLine();
-            if(!isAlphaNumeric(pname)) {
+            if(!isAlphaNumeric(pname) || pname.equalsIgnoreCase("")) {
             	System.out.println("That is an invalid name, please restart.");
             	RegisterPlayers();
             }
-            
-            
             
             while (!nameDuplicationCheck(pname))
             {

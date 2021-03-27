@@ -27,7 +27,7 @@ public class EndGameTransaction {
 				tproperty += gamePlayers.get(i).getOwnedTiles().get(x).getCost();
 			}
 			
-			System.out.println("Value of Player " + gamePlayers.get(i).getName() + " | " + (tbal + tproperty));
+			//System.out.println("Value of Player " + gamePlayers.get(i).getName() + " | " + (tbal + tproperty));
 			
 			if(i == 0) {
 				temp = tbal + tproperty;
@@ -39,15 +39,10 @@ public class EndGameTransaction {
 					winner = gamePlayers.get(i);
 				}
 			}
-			
-			
-			
-		
 		}
 		
 		System.out.println("The winner of the game is " + winner.getName() + " with a total value of £" + temp);
 		dataManage(winner, temp);
-		m.loadMenu();
 		
 		
 	}
