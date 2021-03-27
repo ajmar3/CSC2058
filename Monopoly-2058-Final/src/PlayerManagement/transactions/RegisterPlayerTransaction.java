@@ -64,7 +64,7 @@ public class RegisterPlayerTransaction {
                     continue;
                 }
             }
-            gamePlayers.add(new Player(pname, 1500));
+            gamePlayers.add(new Player(pname, 150000));
         }
 
         if (!securityCheck()) {
