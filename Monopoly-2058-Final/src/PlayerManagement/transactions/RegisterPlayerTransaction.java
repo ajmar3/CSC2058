@@ -15,62 +15,56 @@ public class RegisterPlayerTransaction {
 
     public static int numTurns;
 
-    public List<Player> RegisterPlayers() 
-    {
+    public List<Player> RegisterPlayers() {
 
         System.out.print("Enter the amount of players entering your game: ");
         String amount = nS.nextLine();
-        
-        switch(amount) {
+
+        switch (amount) {
         case "2":
-        	break;
+            break;
         case "3":
-        	break;
+            break;
         case "4":
-        	break;
+            break;
         case "5":
-        	break;
+            break;
         case "6":
-        	break;
+            break;
         case "7":
-        	break;
+            break;
         case "8":
-        	break;
+            break;
         default:
-        	System.out.println("That is not a valid input (enter 2 - 8)");
-        	RegisterPlayers();
-        	break;
+            System.out.println("That is not a valid input (enter 2 - 8)");
+            RegisterPlayers();
+            break;
         }
         String pname = null;
-        
-        
+
         int x = Integer.parseInt(amount);
-        
 
         // check if name has already been entered by player
         for (int i = 0; i < x; i++) {
-        	
-            System.out.println("Enter the name of player " + (i + 1) + ": ");            
+
+            System.out.println("Enter the name of player " + (i + 1) + ": ");
             pname = nS.nextLine();
-            if(!isAlphaNumeric(pname) || pname.equalsIgnoreCase("")) {
-            	System.out.println("That is an invalid name, please restart.");
-            	RegisterPlayers();
+            if (!isAlphaNumeric(pname) || pname.equalsIgnoreCase("")) {
+                System.out.println("That is an invalid name, please restart.");
+                RegisterPlayers();
             }
-            
-            while (!nameDuplicationCheck(pname))
-            {
+
+            while (!nameDuplicationCheck(pname)) {
                 System.out.print("This player name has already been entered! \n\n");
                 System.out.println("Enter the name of player " + (i + 1) + ": ");
                 pname = nS.nextLine();
-                if (nameDuplicationCheck(pname)) 
-                {
+                if (nameDuplicationCheck(pname)) {
                     continue;
-                } else 
-                {
+                } else {
                     continue;
                 }
-            }        
-            gamePlayers.add(new Player(pname, 150000));    
+            }
+            gamePlayers.add(new Player(pname, 1500));
         }
 
         if (!securityCheck()) {
@@ -79,68 +73,56 @@ public class RegisterPlayerTransaction {
 
         else {
             printDetails();
-            boolean holder = false;           
+            boolean holder = false;
 
             // getting the amount of turns the game should last for
             System.out.println("Enter how many turns do you want the game to continue for: " + "\n");
             holder = true;
-            String num = nS.nextLine();   
-            while(!numberCheck(num))
-            {
+            String num = nS.nextLine();
+            while (!numberCheck(num)) {
                 System.out.println("Not valid");
                 System.out.println("Enter how many turns do you want the game to continue for: " + "\n");
                 num = nS.nextLine();
-            	if(numberCheck(num)) {
-            		continue;
-            	}
-            	else {
-            		continue;
-            	}
+                if (numberCheck(num)) {
+                    continue;
+                } else {
+                    continue;
+                }
             }
-        
-        	numTurns = Integer.parseInt(num);
-        	   System.out.println("Enter any button to start the game");
-               String in = nS.nextLine();
-               System.out
-                       .println("\n" + "#########################################################################" + "\n"); // adding
-                                                                                                                            // row
-                                                                                                                            // of
-                                                                                                                            // #s
-                                                                                                                            // after
-                                                                                                                            // each
-                                                                                                                            // turn
-                                                                                                                            // [A.M]            
-               return gamePlayers;
-	        
-	        
 
-         
+            numTurns = Integer.parseInt(num);
+            System.out.println("Enter any button to start the game");
+            String in = nS.nextLine();
+            System.out
+                    .println("\n" + "#########################################################################" + "\n"); // adding
+                                                                                                                         // row
+                                                                                                                         // of
+                                                                                                                         // #s
+                                                                                                                         // after
+                                                                                                                         // each
+                                                                                                                         // turn
+                                                                                                                         // [A.M]
+            return gamePlayers;
+
         }
         return null;
     }
-    
-    public boolean numberCheck(String in)
-    {
-    	boolean numeric = true;
 
-        try 
-        {
+    public boolean numberCheck(String in) {
+        boolean numeric = true;
+
+        try {
             Double num1 = Double.parseDouble(in);
-        } 
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             numeric = false;
         }
 
-        if(numeric) 
-        {		
-        	return true;
+        if (numeric) {
+            return true;
+        } else {
+            return false;
         }
-        else
-        {           
-        	return false;
-        }
-	
-    	
+
     }
 
     public boolean nameDuplicationCheck(String name) // check if player name has already been used
@@ -166,23 +148,23 @@ public class RegisterPlayerTransaction {
         }
         return true;
     }
-    
-    public boolean isAlphaNumeric(String s){
-        String pattern= "^[a-zA-Z0-9]*$";
+
+    public boolean isAlphaNumeric(String s) {
+        String pattern = "^[a-zA-Z0-9]*$";
         return s.matches(pattern);
     }
-    
+
     public boolean sqlCheck(String name) {
-    	
-    	for (int i = 0; i < gamePlayers.size(); i++) {
-            if (gamePlayers.get(i).getName().startsWith("\"")|| gamePlayers.get(i).getName().endsWith("\"")){
+
+        for (int i = 0; i < gamePlayers.size(); i++) {
+            if (gamePlayers.get(i).getName().startsWith("\"") || gamePlayers.get(i).getName().endsWith("\"")) {
                 return false;
             } else {
                 continue;
             }
-    	}
-		return true;
-    	
+        }
+        return true;
+
     }
 
     public static void printDetails() {
